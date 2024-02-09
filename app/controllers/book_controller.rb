@@ -19,7 +19,7 @@ class BookController < ApplicationController
     end
   end
 
-  
+
 
   def readallbook
     book=Book.all

@@ -30,4 +30,7 @@ Rails.application.routes.draw do
   post "book/createorder",to:"order#createorder"
   put "book/:id/returnbook",to:"order#returnbook"
   get "book/userorders", to:"order#userorders"
+
+  patch "/makeusertoadmin/:id", to:"user#makeusertoadmin"
+  get "/login" ,to:"user#login"
 end
