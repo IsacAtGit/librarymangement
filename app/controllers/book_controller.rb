@@ -7,7 +7,11 @@ class BookController < ApplicationController
     existing_book = Book.find_by(isbn: book.isbn)
 
     if existing_book
-      render json: { error: 'Book already exists.' }, status: :unprocessable_entity
+      render json: {
+        "error": "Conflict",
+      "message": "The book with the specified information already exists.",
+      "status_code": 409
+      }, status: :unprocessable_entity
     elsif book.save
       response = {
         message: 'book saved successfully.',
@@ -85,16 +89,16 @@ class BookController < ApplicationController
 
     if book.save
         responsedone={
-        message:"book updated"
-
+        message:"book updated",
+        updated_book: Book.find(params[:id])
      }
-     render json: response
+     render json: responsedone
     else
         responcefail={
             :status=>"400",
             :message =>"unable to save book"
         }
-        render json: response
+        render json: responcefail
     end
     rescue ActiveRecord::RecordNotFound
     response = {

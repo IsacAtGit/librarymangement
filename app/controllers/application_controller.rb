@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
     protect_from_forgery with: :null_session
-    before_action :check_admin_access, only: :makeusertoadmin 
+     before_action :check_admin_access, only: :makeusertoadmin
 
     private
 

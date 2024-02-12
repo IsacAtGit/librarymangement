@@ -33,4 +33,5 @@ Rails.application.routes.draw do
 
   patch "/makeusertoadmin/:id", to:"user#makeusertoadmin"
   get "/login" ,to:"user#login"
+  get "/logout" ,to:"user#logout"
 end

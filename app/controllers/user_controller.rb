@@ -40,8 +40,11 @@ class UserController < ApplicationController
         render json: {message:"Invalid email or password"}
       end
     end
+    def logout
+      session.delete("current_user")
+    end
 
-      def readalluser
+    def readalluser
          user=User.all
          response={
             message:"all users list fetched successfully",
@@ -76,7 +79,7 @@ class UserController < ApplicationController
           }
           render json: response, status: :not_found
         end
-      end
+    end
 
       def deleteuser
         begin
