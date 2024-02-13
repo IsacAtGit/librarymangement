@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 
     before_action :validate_params_presence, only: :createuser
-    def createuser
+    def create
         user = User.new(user_params)
         # user = User.new(name: 'John', email: 'john@example.com', password:"jhon2002",mobilenumber:"9876543210")
        user.is_admin=false
@@ -24,27 +24,9 @@ class UserController < ApplicationController
     end
 
 
-    def login
-      email= params[:email]
-      password= params[:password]
 
-      user = User.find_by(email: email)
-      if user && user.authenticate(password)
-        # session[:current_user] = user.id
-        # session[:expires_at] = Time.current + 1.day
-        Rails.cache.write("current_user", user.id)
-        user_id = Rails.cache.read("current_user")
-        # user_id = session[:current_user]
-        render json: {message:"successfully logged in","user id stored in cashe":user_id}
-      else
-        render json: {message:"Invalid email or password"}
-      end
-    end
-    def logout
-      session.delete("current_user")
-    end
 
-    def readalluser
+    def index
          user=User.all
          response={
             message:"all users list fetched successfully",
@@ -81,7 +63,7 @@ class UserController < ApplicationController
         end
     end
 
-      def deleteuser
+      def delete
         begin
         user=User.find(params[:id])
         if user.destroy
@@ -105,7 +87,7 @@ class UserController < ApplicationController
         end
       end
 
-      def readuser
+      def show
         begin
           user = User.find(params[:id])
           response = {
@@ -123,7 +105,7 @@ class UserController < ApplicationController
       end
 
 
-    def edituser
+    def edit
         begin
 
         user=User.find(params[:id])

@@ -1,6 +1,6 @@
 class BookController < ApplicationController
   before_action :validate_params_presence, only: :createbook
-  def createbook
+  def create
     book = Book.new(book_params)
 
     # Check for duplicate entry by searching for an existing book with the same isbn
@@ -25,7 +25,7 @@ class BookController < ApplicationController
 
 
 
-  def readallbook
+  def index
     book=Book.all
     response={
        message:"all books list fetched successfully",
@@ -33,7 +33,7 @@ class BookController < ApplicationController
     }
     render json: response
  end
-  def readbook
+  def show
     begin
       book = Book.find(params[:id])
       response = {
@@ -50,7 +50,7 @@ class BookController < ApplicationController
     end
   end
 
-  def deletebook
+  def delete
     begin
     book=Book.find(params[:id])
     if book.destroy
@@ -74,7 +74,7 @@ class BookController < ApplicationController
     end
   end
 
-  def editbook
+  def edit
     begin
 
     book=Book.find(params[:id])

@@ -1,6 +1,6 @@
 class AuthorController < ApplicationController
     before_action :validate_params_presence, only: :createauthor
-      def createauthor
+      def create
         author = Author.new(author_params)
         if author.save
           response = {
@@ -14,7 +14,7 @@ class AuthorController < ApplicationController
       end
 
 
-      def readallauthor
+      def index
          author=Author.all
          response={
             message:"all authors list fetched successfully",
@@ -24,7 +24,7 @@ class AuthorController < ApplicationController
       end
 
 
-      def deleteauthor
+      def delete
         begin
         author=Author.find(params[:id])
         if author.destroy
@@ -50,7 +50,7 @@ class AuthorController < ApplicationController
 
       end
 
-      def readauthor
+      def show
         begin
           author = Author.find(params[:id])
           response = {
@@ -68,7 +68,7 @@ class AuthorController < ApplicationController
       end
 
 
-      def editauthor
+      def edit
         begin
           author=Author.find(params[:id])
         #author=author.find(params[:id])

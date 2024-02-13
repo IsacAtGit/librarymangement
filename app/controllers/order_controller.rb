@@ -1,13 +1,13 @@
 class OrderController < ApplicationController
 before_action :check_stock_avalilable, only: :createorder
 
-  def createorder
+  def create
     order = Order.new(get_params)
     @book = Book.find(params[:book_id])
     @user = User.find(params[:user_id])
-    if @user.books.include?(@book)
-      render json:{message:"Book already purchased by this user",status:"400"}, status: :bad_request
-    return
+    if @user.orders.where(book: @book, return_date: nil).exists?
+      render json: { message: "Book already purchased by this user", status: "400" }, status: :bad_request
+      return
     else
        if order.save
        book=Book.find(order.book_id) #book id in boook table
@@ -22,7 +22,7 @@ before_action :check_stock_avalilable, only: :createorder
     end
   end
 
-  def returnbook
+  def update
     begin
       order_obj = Order.find(params[:id])
       if order_obj.return_date.nil?
@@ -46,9 +46,9 @@ before_action :check_stock_avalilable, only: :createorder
     end
   end
 
-  def userorders
+  def show
     begin
-    @user = User.find(params[:user_id])
+    @user = User.where(id:params[:user_id])
     if @user.books.empty?
       render json:{message:"Nothing to show here"}
     else
