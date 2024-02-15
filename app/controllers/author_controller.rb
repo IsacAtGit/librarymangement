@@ -1,5 +1,6 @@
 class AuthorController < ApplicationController
-    before_action :validate_params_presence, only: :createauthor
+    before_action :validate_params_presence, only: :create
+    before_action :check_admin_access, only: [:create, :delete,:edit]
       def create
         author = Author.new(author_params)
         if author.save

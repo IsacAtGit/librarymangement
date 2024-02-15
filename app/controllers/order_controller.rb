@@ -1,5 +1,5 @@
 class OrderController < ApplicationController
-before_action :check_stock_avalilable, only: :createorder
+before_action :check_stock_avalilable, only: :create
 
   def create
     order = Order.new(get_params)

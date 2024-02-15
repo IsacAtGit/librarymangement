@@ -1,6 +1,6 @@
 class UserController < ApplicationController
 
-    before_action :validate_params_presence, only: :createuser
+    before_action :validate_params_presence, only: :create
     def create
         user = User.new(user_params)
         # user = User.new(name: 'John', email: 'john@example.com', password:"jhon2002",mobilenumber:"9876543210")

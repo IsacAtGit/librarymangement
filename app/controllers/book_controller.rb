@@ -1,5 +1,6 @@
 class BookController < ApplicationController
-  before_action :validate_params_presence, only: :createbook
+  before_action :validate_params_presence, only: :create
+  before_action :check_admin_access, only: [:create, :delete,:edit]
   def create
     book = Book.new(book_params)
 
